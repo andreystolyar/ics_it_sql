@@ -1,0 +1,18 @@
+SET QUOTED_IDENTIFIER ON;
+DROP FUNCTION IF EXISTS dbo.udf_GetSKUPrice;
+GO
+
+CREATE FUNCTION dbo.udf_GetSKUPrice(@ID_SKU AS INT)
+	RETURNS DECIMAL(18, 2)
+AS
+BEGIN
+	RETURN
+	(
+		SELECT SUM("Value") / SUM("Quantity")
+		FROM dbo.Basket
+		WHERE "Quantity" > 0
+			AND "ID_SKU" = @ID_SKU
+		GROUP BY "ID_SKU"
+	)
+END;
+GO
