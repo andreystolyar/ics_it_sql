@@ -12,7 +12,6 @@ BEGIN
 		FROM dbo.Basket
 		WHERE "Quantity" > 0
 			AND "ID_SKU" = @ID_SKU
-		GROUP BY "ID_SKU"
 	)
 END;
 GO
